@@ -1,0 +1,34 @@
+<svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg">
+  <g font-family="Instrument Sans, PingFang SC, Noto Sans SC, sans-serif" font-size="14" fill="#292620">
+    <!-- 写入路径 -->
+    <rect x="1" y="20" width="170" height="64" rx="6" fill="#faf8f4" stroke="#d9d1c2"/>
+    <text x="86" y="47" text-anchor="middle" font-weight="600">Markdown 原文</text>
+    <text x="86" y="68" text-anchor="middle" fill="#6a655a" font-size="12.5">“全文搜索的实现”</text>
+
+    <rect x="296" y="20" width="170" height="64" rx="6" fill="#fdddb2"/>
+    <text x="381" y="47" text-anchor="middle" font-weight="600">jieba 分词</text>
+    <text x="381" y="68" text-anchor="middle" fill="#4a463e" font-size="12.5">全文 搜索 的 实现</text>
+
+    <rect x="589" y="62" width="170" height="86" rx="6" fill="#292620"/>
+    <text x="674" y="99" text-anchor="middle" font-weight="600" fill="#faf8f4">FTS5 索引</text>
+    <text x="674" y="121" text-anchor="middle" fill="#cfc9bc" font-size="12.5">tokenize = unicode61</text>
+
+    <!-- 查询路径 -->
+    <rect x="1" y="126" width="170" height="64" rx="6" fill="#faf8f4" stroke="#d9d1c2"/>
+    <text x="86" y="153" text-anchor="middle" font-weight="600">用户查询</text>
+    <text x="86" y="174" text-anchor="middle" fill="#6a655a" font-size="12.5">“搜索实现”</text>
+
+    <rect x="296" y="126" width="170" height="64" rx="6" fill="#fdddb2"/>
+    <text x="381" y="153" text-anchor="middle" font-weight="600">同一分词器</text>
+    <text x="381" y="174" text-anchor="middle" fill="#4a463e" font-size="12.5">搜索 AND 实现</text>
+
+    <g stroke="#716b5f" stroke-width="1.2" fill="none">
+      <path d="M171 52 H290"/><path d="M284 47 L291 52 L284 57"/>
+      <path d="M466 52 H530 Q545 52 545 67 V88 Q545 98 560 98 H583"/><path d="M577 93 L584 98 L577 103"/>
+      <path d="M171 158 H290"/><path d="M284 153 L291 158 L284 163"/>
+      <path d="M466 158 H530 Q545 158 545 143 V122 Q545 112 560 112 H583" stroke-dasharray="4 4"/><path d="M577 107 L584 112 L577 117"/>
+    </g>
+    <text x="228" y="40" text-anchor="middle" fill="#716b5f" font-size="12">构建时</text>
+    <text x="228" y="146" text-anchor="middle" fill="#716b5f" font-size="12">请求时</text>
+  </g>
+</svg>

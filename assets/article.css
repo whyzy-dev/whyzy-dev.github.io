@@ -1,0 +1,310 @@
+/* 文章页专用：所有文章共用，排版规则都写在这里。 */
+
+:root {
+  --measure: 680px;
+  --wide: 860px;
+}
+
+/* ———— 文章头部 ———— */
+main { padding: 0 var(--gutter); }
+
+.article-header {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 96px 0 56px;
+  text-align: center;
+}
+.kicker {
+  margin: 0 0 22px;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-3);
+}
+.kicker a { text-decoration: none; }
+.kicker a:hover { color: var(--text); }
+.kicker span { margin: 0 .5em; color: var(--text-4); }
+
+h1 {
+  margin: 0 auto;
+  max-width: 18em;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 1.28;
+  letter-spacing: -.012em;
+  text-wrap: balance;
+}
+.dek {
+  margin: 24px auto 0;
+  max-width: 34em;
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--text-3);
+  text-wrap: pretty;
+}
+.meta {
+  margin: 36px 0 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-3);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+}
+.meta dt {
+  display: inline;
+  color: var(--text-4);
+  margin-right: .5em;
+}
+.meta dd { display: inline; margin: 0; }
+
+/* ———— 正文 ———— */
+.prose {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 56px 0 40px;
+  border-top: 1px solid var(--rule);
+}
+.prose > * { margin: 0; }
+.prose > * + * { margin-top: 1.15em; }
+
+.prose p { text-wrap: pretty; }
+
+.prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: .22em;
+  text-decoration-skip-ink: none;
+  text-underline-offset: .12em;
+}
+.prose a:hover { background: var(--accent); }
+
+.prose strong { font-weight: 600; }
+/* 中文不用斜体，强调改为主题色的荧光笔效果 */
+.prose em {
+  font-style: normal;
+  box-shadow: inset 0 -0.42em 0 var(--accent);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.prose em:lang(en) { font-style: italic; box-shadow: none; }
+
+.prose h2 {
+  margin-top: 2.6em;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 1.4;
+  letter-spacing: -.005em;
+}
+.prose h3 {
+  margin-top: 2em;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.prose h4 {
+  margin-top: 1.8em;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.prose h2 + *, .prose h3 + *, .prose h4 + * { margin-top: .7em; }
+
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li + li { margin-top: .4em; }
+.prose li > p { margin: 0; }
+.prose li > p + p { margin-top: .6em; }
+.prose li::marker { color: var(--text-4); }
+.prose ol li::marker { font-family: var(--sans); font-size: .9em; }
+
+.prose code {
+  font-family: var(--mono);
+  font-size: .84em;
+  background: var(--bg-sunk);
+  padding: .12em .38em;
+  border-radius: 4px;
+  text-autospace: no-autospace;
+}
+
+.prose blockquote {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 2px 0 2px 26px;
+  border-left: 3px solid var(--accent);
+  font-size: 21px;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+.prose blockquote p + p { margin-top: .6em; }
+.prose blockquote cite {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+/* 代码块 */
+.prose pre {
+  margin: 1.7em 0;
+  padding: 18px 18px 20px;
+  overflow-x: auto;
+  background: var(--bg-code);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 4;
+  color: var(--text);
+  font-variant-ligatures: none;
+}
+.prose pre code { font: inherit; background: none; padding: 0; border-radius: 0; }
+
+/* 需要显示文件名时，用 <figure class="code"> 包住代码块 */
+.code {
+  margin-top: 1.7em;
+  margin-bottom: 1.7em;
+  background: var(--bg-code);
+  border: 1px solid var(--rule-soft);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.code figcaption {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 18px;
+  border-bottom: 1px solid var(--rule-soft);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+.code figcaption span:last-child { color: var(--text-4); }
+.code pre {
+  margin: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+/* 代码高亮：tok-* 用于手写，其余是 Pygments 的类名 */
+.tok-k, .prose pre :is(.k, .kc, .kd, .kn, .kp, .kr, .kt, .ow) { color: var(--accent-ink); }
+.tok-s, .prose pre :is(.s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si) { color: #566534; }
+.tok-c, .prose pre :is(.c, .c1, .ch, .cm, .cp, .cs) { color: var(--text-4); }
+.tok-f, .prose pre :is(.nf, .nc, .nb) { color: #3f5f6e; }
+
+/* 插图：![说明](图片) 直接可用；需要图注时用 <figure class="figure"> */
+.prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.figure {
+  margin-top: 2.4em;
+  margin-bottom: 2.4em;
+}
+.figure .frame {
+  background: var(--bg-sunk);
+  border-radius: 8px;
+  padding: 32px 28px;
+}
+.figure svg,
+.figure .frame img { display: block; width: 100%; height: auto; border-radius: 0; }
+.figure figcaption {
+  margin-top: 12px;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+@media (min-width: 900px) {
+  .figure.wide { margin-left: -90px; margin-right: -90px; }
+}
+
+/* 表格 */
+.table-wrap { overflow-x: auto; margin-top: 1.6em; margin-bottom: 1.6em; }
+.prose table { margin: 1.6em 0; }
+.prose .table-wrap table { margin: 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+th, td {
+  text-align: left;
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+}
+th {
+  font-weight: 600;
+  border-bottom-color: var(--rule);
+  color: var(--text);
+  white-space: nowrap;
+}
+td { color: var(--text-2); }
+
+.prose hr {
+  border: 0;
+  margin: 3em auto;
+  width: 64px;
+  border-top: 1px solid var(--rule);
+}
+
+sup a { text-decoration: none !important; font-family: var(--sans); font-size: .75em; color: var(--accent-ink); padding: 0 1px; }
+
+.footnotes, .footnote {
+  margin-top: 3.2em !important;
+  padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-3);
+}
+.footnotes ol, .footnote ol { padding-left: 1.2em; margin: 0; }
+.footnote > hr, .footnotes > hr { display: none; }
+
+/* ———— 页脚 ———— */
+.article-end {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 28px 0 96px;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--text-3);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.article-end a { text-decoration: none; color: var(--text); }
+.article-end a:hover { color: var(--accent-ink); }
+
+/* ———— 移动端 ———— */
+@media (max-width: 640px) {
+  .article-header { padding: 56px 0 36px; text-align: left; }
+  h1 { font-size: 32px; line-height: 1.32; margin: 0; }
+  .dek { font-size: 18px; margin-left: 0; }
+  .meta { justify-content: flex-start; margin-top: 26px; gap: 2px 20px; }
+  .prose { padding-top: 36px; }
+  .prose h2 { font-size: 23px; margin-top: 2.2em; }
+  .prose blockquote { font-size: 18.5px; padding-left: 18px; }
+  .code { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); border-radius: 0; border-left: 0; border-right: 0; }
+  .code pre { font-size: 13px; padding: 16px var(--gutter); }
+  .code figcaption { padding: 8px var(--gutter); }
+  .figure .frame { padding: 20px 14px; overflow-x: auto; }
+  .prose > table { display: block; overflow-x: auto; }
+  .figure svg { min-width: 540px; }
+}

@@ -1,0 +1,443 @@
+/* 主页专用。颜色和字体全部来自 site.css 的令牌，这里不写新的颜色值。 */
+
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* ———— 页眉里的语言切换 ———— */
+/* 语言胶囊高 44px，收窄上下内边距后页眉高度与文章页基本一致 */
+.home-page .site-header .inner { padding-top: 10px; padding-bottom: 10px; }
+
+.site-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+}
+.site-nav a:hover,
+.q-name a:hover,
+.post-title a:hover,
+.all-notes a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: .22em;
+  text-decoration-skip-ink: none;
+  text-underline-offset: .12em;
+}
+.q-name a,
+.post-title a,
+.all-notes a { text-decoration: none; }
+
+.lang-switch {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 13px;
+}
+.lang-switch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: var(--text-2);
+  text-decoration: none;
+}
+.lang-switch a[aria-current] {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ———— 两栏骨架 ———— */
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/*
+ * 页边线只画一次，从刊头贯穿到「关于」。
+ * 画在外层容器上，区块之间的横线和筛选造成的条目增减都不会打断它。
+ */
+.spine { position: relative; }
+.spine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 200px;
+  width: 2px;
+  background: var(--accent);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+}
+.margin {
+  padding-right: 24px;
+  font-family: var(--sans);
+}
+.column { padding-left: 58px; }
+
+.margin h2,
+.margin p,
+.column p,
+.column h1,
+.column h3 { margin: 0; }
+
+.mark { box-shadow: inset 0 -0.42em 0 var(--accent); }
+
+/* 页边栏的区块标题：问题清单、最近的手记、关于 */
+.margin h2 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.margin h2 + p {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+/* ———— 刊头 ———— */
+.masthead .margin { padding-top: 96px; }
+.masthead .column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 96px;
+  padding-bottom: 104px;
+}
+.mast-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--text-3);
+}
+.mast-meta span { display: block; }
+.mast-meta span:empty { min-height: 1.9em; }
+.kicker {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-3);
+}
+h1 {
+  font-weight: 500;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.22;
+  letter-spacing: -.012em;
+}
+.dek {
+  max-width: 34em;
+  font-size: 20px;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+
+/* ———— 问题清单标题行与筛选 ———— */
+.section-head,
+.notes,
+.about { border-top: 1px solid var(--rule); }
+
+.section-head .margin { padding-top: 40px; padding-bottom: 24px; }
+.section-head .column { padding-top: 32px; padding-bottom: 24px; }
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 16px;
+  font-family: var(--sans);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--text); }
+.chip[aria-pressed="true"] {
+  border-color: var(--text);
+  background: var(--accent);
+}
+.chip-count {
+  font-size: 12px;
+  color: var(--text-3);
+}
+/* --text-3 在主题色上对比度不足 4.5:1 */
+.chip[aria-pressed="true"] .chip-count { color: var(--text-2); }
+
+/* 四种状态靠形状加文字区分，不靠颜色表达含义 */
+.dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.dot-done { background: var(--text); }
+.dot-live {
+  background: var(--text);
+  box-shadow: 0 0 0 3px var(--accent);
+}
+.dot-wip {
+  border: 1.5px solid var(--text);
+  background: var(--accent);
+}
+.dot-idea { border: 1.5px dashed var(--text-3); }
+
+/* ———— 问题条目 ———— */
+.question-list { padding-bottom: 64px; }
+
+.q-margin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 44px;
+  padding-bottom: 12px;
+}
+.q-no {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+.q-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.q-note {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+.question .column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 40px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.question h3 { font-weight: 500; }
+.q-featured {
+  font-size: clamp(28px, 3.2vw, 38px);
+  line-height: 1.35;
+  letter-spacing: -.01em;
+}
+.q-regular {
+  font-size: clamp(22px, 2.3vw, 27px);
+  line-height: 1.4;
+}
+.qm {
+  padding: 0 .04em;
+  border-radius: 3px;
+  transition: background .2s ease;
+}
+.question:hover .qm { background: var(--accent); }
+
+.q-project {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 28px;
+}
+.q-name {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.q-tech {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: .03em;
+  color: var(--text-3);
+}
+.q-answer {
+  max-width: 36em;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--text-2);
+}
+
+/* ———— 最近的手记 ———— */
+.notes .margin,
+.about .margin { padding-top: 40px; padding-bottom: 24px; }
+.notes .column { padding-top: 28px; padding-bottom: 56px; }
+
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.post {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 28px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.post-date {
+  flex: 0 0 96px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+.post-title {
+  flex: 1 1 360px;
+  min-width: 0;
+  font-size: 21px;
+  line-height: 1.5;
+}
+.post-tag {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+.column .all-notes {
+  margin-top: 18px;
+  padding: 10px 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+/* ———— 手记目录页 ———— */
+/* 文章少时也让页边线和页脚落到窗口底部 */
+.notes-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.notes-page .home {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+}
+.notes-page .spine { flex: 1; }
+
+.masthead-compact .margin { padding-top: 72px; }
+.masthead-compact .column {
+  gap: 22px;
+  padding-top: 72px;
+  padding-bottom: 64px;
+}
+.masthead-compact h1 { font-size: clamp(34px, 4vw, 52px); }
+
+.margin h2.year {
+  font-family: var(--mono);
+  font-weight: 500;
+}
+.year-group:last-child .column { padding-bottom: 112px; }
+
+/* ———— 关于 ———— */
+.about .column {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-top: 40px;
+  padding-bottom: 112px;
+}
+.about .column p {
+  max-width: 36em;
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--text-2);
+}
+.about .column .about-lead {
+  max-width: 34em;
+  font-size: 21px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.about .column .signature {
+  margin-top: 10px;
+  color: var(--text);
+}
+
+/* ———— 窄屏：页边信息折叠到正文上方，页边线移到最左 ———— */
+@media (max-width: 899px) {
+  .spine::before { left: 0; }
+  .row { display: block; }
+  .margin { padding: 0 0 0 20px; }
+  .column { padding-left: 20px; }
+
+  .masthead .margin { padding-top: 56px; }
+  .masthead .column { padding-top: 24px; padding-bottom: 64px; }
+  .mast-meta span { display: inline; }
+  .mast-meta span:empty { display: none; }
+  .mast-meta span + span:not(:empty)::before { content: " · "; }
+
+  .section-head .margin,
+  .notes .margin,
+  .about .margin { padding-top: 32px; padding-bottom: 0; }
+  .section-head .column { padding-top: 16px; padding-bottom: 8px; }
+  .notes .column { padding-top: 12px; padding-bottom: 40px; }
+  .about .column { padding-top: 16px; padding-bottom: 72px; }
+
+  .q-margin {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 6px;
+    padding-top: 28px;
+    padding-bottom: 0;
+    font-size: 13px;
+  }
+  .q-no,
+  .q-status,
+  .q-note { font-size: 13px; line-height: 1.6; }
+  .q-status { gap: 6px; }
+  .q-margin > * + *::before {
+    content: "·";
+    margin-right: 6px;
+    color: var(--text-3);
+  }
+  .q-status::before { margin-right: 0; }
+  .question .column { gap: 12px; padding-top: 10px; padding-bottom: 28px; }
+  .question-list { padding-bottom: 40px; }
+}
+
+/* ———— 手机 ———— */
+@media (max-width: 640px) {
+  .dek { font-size: 18px; }
+  .post-title { font-size: 19px; }
+  .post { padding: 14px 0; }
+  .about .column .about-lead { font-size: 19px; }
+  .about .column p { font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qm { transition: none; }
+}

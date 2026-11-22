@@ -1,0 +1,149 @@
+/* 主页和文章页共用：设计令牌、基础排版、页眉、页脚。 */
+
+/*
+ * 中文标点（引号、破折号、省略号）在西文字体里是半宽字形，混排时会显得局促。
+ * 这里用 unicode-range 把它们单独指给中文字体，其余字符仍走西文字体。
+ */
+@font-face {
+  font-family: "CJK Punct Serif";
+  src: local("Noto Serif CJK SC"), local("Source Han Serif SC"), local("Songti SC"), local("STSong"), local("SimSun");
+  unicode-range: U+2014, U+2018-2019, U+201C-201D, U+2026, U+00B7;
+}
+@font-face {
+  font-family: "CJK Punct Sans";
+  src: local("Noto Sans CJK SC"), local("Source Han Sans SC"), local("PingFang SC"), local("Microsoft YaHei");
+  unicode-range: U+2014, U+2018-2019, U+201C-201D, U+2026, U+00B7;
+}
+
+:root {
+  /*
+   * 色彩：背景、主题色、主要文字是定稿的三个值，其余都由它们推导。
+   * 主题色很浅，只能用作色块、高亮和线条；需要彩色文字时用 --accent-ink。
+   */
+  --bg: #faf8f4;
+  --bg-sunk: #f3efe7;
+  --bg-code: #f5f2eb;
+  --text: #292620;
+  --text-2: #4a463e;
+  --text-3: #6a655a;
+  --text-4: #716b5f;
+  --rule: #e6dfd2;
+  --rule-soft: #eee9df;
+  --accent: #fdddb2;
+  --accent-ink: #8f5a1e;
+
+  --serif: "CJK Punct Serif", "Source Serif 4", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif;
+  --sans: "CJK Punct Sans", "Instrument Sans", "PingFang SC", "Noto Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
+  --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, "Noto Sans Mono CJK SC", monospace;
+
+  --gutter: 24px;
+}
+
+/* 英文页的撇号、引号要用西文字形，不能走上面的中文标点字体 */
+:root:lang(en) {
+  --serif: "Source Serif 4", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif;
+  --sans: "Instrument Sans", "PingFang SC", "Noto Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.85;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* 中西文之间自动留出间隙（支持的浏览器）；正文里也手动保留了空格 */
+  text-autospace: normal;
+  text-spacing-trim: normal;
+  line-break: strict;
+  overflow-wrap: break-word;
+}
+
+::selection { background: var(--accent); }
+
+a { color: inherit; }
+
+/* ———— 站点页眉 ———— */
+.site-header {
+  border-bottom: 1px solid var(--rule-soft);
+}
+.site-header .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 20px;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.site-name {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
+.site-nav { display: flex; gap: 28px; }
+.site-nav a {
+  text-decoration: none;
+  color: var(--text-3);
+}
+.site-nav a:hover,
+.site-nav a[aria-current] { color: var(--text); }
+
+/* ———— 站点页脚 ———— */
+.site-footer {
+  border-top: 1px solid var(--rule-soft);
+  background: var(--bg-sunk);
+}
+.site-footer .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px var(--gutter);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-3);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ———— 移动端 ———— */
+@media (max-width: 640px) {
+  :root { --gutter: 20px; }
+  body { font-size: 17px; line-height: 1.8; }
+  .site-header .inner { padding: 14px var(--gutter); }
+  .site-nav { gap: 18px; }
+}
+
+/* 页脚链接 */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.footer-route { text-decoration: none; }
+.footer-route:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: .22em;
+  text-decoration-skip-ink: none;
+  text-underline-offset: .12em;
+}
